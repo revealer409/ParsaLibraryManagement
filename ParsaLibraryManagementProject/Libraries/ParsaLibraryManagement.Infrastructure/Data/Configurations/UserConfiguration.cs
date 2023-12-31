@@ -13,9 +13,11 @@ namespace ParsaLibraryManagement.Infrastructure.Data.Configurations
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
-        {
-            builder.HasKey(e => e.UserId);
-            builder.Property(e => e.UserId).ValueGeneratedOnAdd();
+        {            
+            builder.ToTable("Users");
+
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
             builder.Property(e => e.Email)
                 .IsRequired()

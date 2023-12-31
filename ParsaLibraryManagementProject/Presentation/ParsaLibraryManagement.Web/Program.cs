@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ParsaLibraryManagement.Application.Configuration;
 using ParsaLibraryManagement.Application.Interfaces;
@@ -6,6 +7,7 @@ using ParsaLibraryManagement.Application.Interfaces.ImageServices;
 using ParsaLibraryManagement.Application.Mappings;
 using ParsaLibraryManagement.Application.Services;
 using ParsaLibraryManagement.Application.Validators;
+using ParsaLibraryManagement.Domain.Entities;
 using ParsaLibraryManagement.Domain.Interfaces;
 using ParsaLibraryManagement.Domain.Interfaces.ImageServices;
 using ParsaLibraryManagement.Domain.Interfaces.Repository;
@@ -24,6 +26,22 @@ builder.Services.AddControllersWithViews();
 
 //Add dbContext services 
 builder.Services.AddDbContext<ParsaLibraryManagementDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ParsaLibraryManagementSQLServerConnection")));
+
+#endregion
+
+#region Identity
+
+builder.Services.AddIdentity<User, Role>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<ParsaLibraryManagementDBContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication();
+
 
 #endregion
 
@@ -70,7 +88,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

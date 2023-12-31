@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ParsaLibraryManagement.Domain.Entities;
 using ParsaLibraryManagement.Infrastructure.Data.Configurations;
 
@@ -10,16 +11,12 @@ namespace ParsaLibraryManagement.Infrastructure.Data.Contexts
     /// <remarks>
     /// This DbContext is responsible for interacting with the underlying database to manage library-related data.
     /// </remarks>
-    public class ParsaLibraryManagementDBContext : DbContext
+    public class ParsaLibraryManagementDBContext : IdentityDbContext<User, Role,int>
     {
         #region Ctor
-
-        public ParsaLibraryManagementDBContext()
-        { }
-
         public ParsaLibraryManagementDBContext(DbContextOptions<ParsaLibraryManagementDBContext> options) : base(options)
         { }
-
+        
         #endregion
 
         #region DbSets
@@ -31,6 +28,8 @@ namespace ParsaLibraryManagement.Infrastructure.Data.Contexts
         // public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }     
 
         #endregion
 
@@ -45,12 +44,15 @@ namespace ParsaLibraryManagement.Infrastructure.Data.Contexts
         /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new BooksConfiguration());
             modelBuilder.ApplyConfiguration(new BooksCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());
             modelBuilder.ApplyConfiguration(new BorrowedBookConfiguration());
             modelBuilder.ApplyConfiguration(new GenderConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
         }
 
         #endregion

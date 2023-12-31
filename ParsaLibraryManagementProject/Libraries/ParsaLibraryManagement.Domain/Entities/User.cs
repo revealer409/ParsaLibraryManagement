@@ -1,34 +1,31 @@
-﻿namespace ParsaLibraryManagement.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ParsaLibraryManagement.Domain.Entities
 {
     /// <summary>
     /// Represents a user in the library system.
     /// </summary>
-    public class User
-    {
-        /// <summary>
-        /// Gets or sets the unique identifier for the user.
-        /// </summary>
-        public int UserId { get; set; }
-
+    public class User : IdentityUser<int>
+    {       
         /// <summary>
         /// Gets or sets the email of the user.
         /// </summary>
-        public string Email { get; set; } = "";
+        public override string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the username of the user.
         /// </summary>
-        public string UserName { get; set; } = "";
+        public override string? UserName { get; set; }  
 
         /// <summary>
         /// Gets or sets the first name of the user.
         /// </summary>
-        public string FirstName { get; set; } = "";
+        public required string FirstName { get; set; }  
 
         /// <summary>
         /// Gets or sets the last name of the user.
         /// </summary>
-        public string LastName { get; set; } = "";
+        public string? LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the gender ID of the user.
@@ -38,16 +35,25 @@
         /// <summary>
         /// Gets or sets the phone number of the user.
         /// </summary>
-        public string PhoneNumber { get; set; } = "";
+        public override string? PhoneNumber { get; set; } 
 
         /// <summary>
         /// Navigation property for the gender of the user.
         /// </summary>
-        public virtual Gender Gender { get; set; }
+        public virtual Gender? Gender { get; set; }
 
         /// <summary>
         /// Navigation property for borrowed books by the user.
         /// </summary>
-        public virtual ICollection<BorrowedBook> BorrowedBooks { get; set; }
+        public virtual ICollection<BorrowedBook>? BorrowedBooks { get; set; }
+        /// <summary>
+        /// User Assigned Roles
+        /// </summary>
+        public virtual ICollection<Role>? Roles { get; set; }
+        /// <summary>
+        /// User Assigned Permissions
+        /// </summary>
+        public virtual ICollection<Permission>? Permissions { get; set; }
+
     }
 }
