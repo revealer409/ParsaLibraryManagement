@@ -79,9 +79,12 @@ namespace ParsaLibraryManagement.Application.Services
         }
 
         /// <inheritdoc />
-        public async Task<List<BookCategoryDto>> GetAllCategoriesStartingWithAsync(string startsWith)
+        public async Task<List<BookCategoryDto>> GetCategoriesAsync(string prefix)
         {
-            var categories = await _booksCategoryRepository.GetBooksCategoriesByStartingLetterAsync(startsWith);
+            // Get categories
+            var categories = await _booksCategoryRepository.GetBookCategoriesAsync(prefix);
+
+            // Map the categories to Dto
             return _mapper.Map<List<BookCategoryDto>>(categories);
         }
 

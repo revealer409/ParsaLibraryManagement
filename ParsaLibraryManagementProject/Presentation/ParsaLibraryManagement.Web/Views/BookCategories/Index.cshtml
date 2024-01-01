@@ -24,13 +24,13 @@
                 <div class="btn-group btn-group-sm mt-2 mb-2" role="group" aria-label="Filter">
                     @foreach (var letter in letters)
                     {
-                        <a class="btn btn-outline-primary" asp-action="Filter" asp-route-startsWith="@letter">@letter</a>
+                        <a class="btn btn-outline-primary" asp-action="Filter" asp-route-prefix="@letter">@letter</a>
                     }
                 </div>
             </div>
             <div class="row">
-                <a class="btn btn-primary col-md-3" asp-action="Index" style=" color:white">
-                    <i class="ti-na m-r-5"></i> Clear Filter
+                <a class="btn btn-dark btn-uppercase col-md-3" asp-action="Index" style=" color:white">
+                    <i class="ti-brush m-r-5"></i> Clear Filter
                 </a>
             </div>
         </div>

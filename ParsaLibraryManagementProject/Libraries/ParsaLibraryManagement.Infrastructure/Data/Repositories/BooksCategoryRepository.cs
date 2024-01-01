@@ -48,11 +48,20 @@ namespace ParsaLibraryManagement.Infrastructure.Data.Repositories
             }
         }
 
-        public async Task<List<BooksCategory>> GetBooksCategoriesByStartingLetterAsync(string startsWith)
-            => await _context.BooksCategories.Where(
-                b => b.Title.ToUpper()
-                      .StartsWith(startsWith.ToUpper()))
-            .ToListAsync();
+        /// <inheritdoc />
+        public async Task<List<BooksCategory>> GetBookCategoriesAsync(string prefix)
+        {
+            try
+            {
+                // Get categories with prefix
+                return await _context.BooksCategories.Where(b => b.Title.ToUpper()
+                            .StartsWith(prefix.ToUpper())).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
         #endregion
     }

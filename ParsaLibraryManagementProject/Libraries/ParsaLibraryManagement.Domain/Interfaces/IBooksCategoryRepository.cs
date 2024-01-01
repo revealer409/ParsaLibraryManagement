@@ -19,10 +19,10 @@ namespace ParsaLibraryManagement.Domain.Interfaces
         Task<OperationResultModel> HasChildRelations(short categoryId);
 
         /// <summary>
-        /// Get Book Categories list by starting letter
+        ///     Retrieves a list of book categories based on the specified prefix asynchronously.
         /// </summary>
-        /// <param name="letter"></param>
-        /// <returns></returns>
-        Task<List<BooksCategory>> GetBooksCategoriesByStartingLetterAsync(string startsWith);
+        /// <param name="prefix">The prefix used to filter book categories.</param>
+        /// <returns>A task representing the asynchronous operation, returning a list of <see cref="BooksCategory"/>.</returns>
+        Task<List<BooksCategory>> GetBookCategoriesAsync(string prefix);
     }
 }

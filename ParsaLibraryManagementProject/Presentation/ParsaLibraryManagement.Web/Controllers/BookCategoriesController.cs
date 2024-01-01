@@ -106,13 +106,13 @@ namespace ParsaLibraryManagement.Web.Controllers
         ///     Handles the HTTP GET request for the view of filtered book categories.
         /// </summary>
         /// <returns>A task representing the asynchronous operation, yielding an <see cref="IActionResult"/>.</returns>
-        [HttpGet("BookCategories/Filter/{startsWith}")]
-        public async Task<IActionResult> Filter(string startsWith)
+        [HttpGet("[controller]/[action]/{prefix}")]
+        public async Task<IActionResult> Filter(string prefix)
         {
             try
             {
                 // Get all categories
-                var categoriesDto = await _bookCategoryServices.GetAllCategoriesStartingWithAsync(startsWith);
+                var categoriesDto = await _bookCategoryServices.GetCategoriesAsync(prefix);
 
                 return View("Index", categoriesDto);
             }
